@@ -83,7 +83,7 @@ a new Java project named `jpa-publishing` to implement the publishing data model
        </persistence-unit>
    </persistence>
    ```
-6. Right-click on the `Main` class and rename the class `JpaCreate`.
+6. Right-click on the `Main` class, select Refactor/Rename to rename the class as `JpaCreate`.
 7. Right-click on `org.example` folder and add a new class `JpaRead`.
 8. Right-click on `org.example` folder and add a new package `org.example.model`.
 9. Right-click on the `model` package and add 4 new classes:
@@ -98,7 +98,7 @@ The project structure should appear as shown:
 
 ## Implementing the entity classes
 
-Note: Use IntelliJ to auto-generate to `toString()` method
+Note: Use IntelliJ to auto-generate the `toString()` method
 along with accessor methods (`get` and `set`) for every instance
 variable defined in the entity classes.
 
@@ -204,13 +204,14 @@ public class Author {
     @GeneratedValue
     private int id;
 
-   @Column(name = "first_name")
-   private String firstName;
+    @Column(name = "first_name")
+    private String firstName;
 
-   @Column(name = "last_name")
-   private String lastName;
+    @Column(name = "last_name")
+    private String lastName;
 
     //getters, setters, toString
+}
 ```
 
 
@@ -798,7 +799,6 @@ FROM Author_Book;
     import javax.persistence.EntityManager;
     import javax.persistence.EntityManagerFactory;
     import javax.persistence.Persistence;
-    import java.util.Set;
     
     public class JpaRead {
         public static void main(String[] args) {

@@ -8,7 +8,6 @@ import org.example.model.Publisher;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Set;
 
 public class JpaRead {
     public static void main(String[] args) {
