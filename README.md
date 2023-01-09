@@ -58,7 +58,7 @@ a new Java project named `jpa-publishing` to implement the publishing data model
        </dependencies>
    
    </project>
-   ```
+   ```   
    
 4. Create a directory `META-INF` within `src/main/resources`.
 5. Create a new file `persistence.xml` in the `META-INF` directory.    
@@ -85,7 +85,7 @@ a new Java project named `jpa-publishing` to implement the publishing data model
            </properties>
        </persistence-unit>
    </persistence>
-   ```
+   ```   
    
 6. Right-click on the `Main` class, select Refactor/Rename to rename the class as `JpaCreate`.
 7. Right-click on `org.example` folder and add a new class `JpaRead`.
