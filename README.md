@@ -809,6 +809,7 @@ FROM Author_Book;
 
 1. Edit the `JpaRead` class to retrieve some of the entities we persisted
    in the database and verify the relationships:   
+
     ```java
     package org.example;
     
@@ -855,10 +856,11 @@ FROM Author_Book;
         }
     }
     ```
+   
 2. Update `persistence.xml` to set the `hibernate.hbm2ddl.auto` property to `none`.
    Recall that this prevents Hibernate from deleting the existing table data.    
 
-   ```xml
+   ```text
    <property name="hibernate.hbm2ddl.auto" value="none" /> <!-- create / create-drop / update / none -->
    ```
    
@@ -866,7 +868,7 @@ FROM Author_Book;
 4. The output from the print statements is interwoven with the Hibernate SQL commands.
    We can suppress the SQL output by editing `persistence.xml` and setting the `hibernate.show_sql` property to `false`.    
 
-   ```xml
+   ```text
    <property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
    ```
    
