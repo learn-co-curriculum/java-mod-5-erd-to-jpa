@@ -807,73 +807,71 @@ FROM Author_Book;
 
 ## Retrieving the data from the database
 
-1. Edit the `JpaRead` class to retrieve some of the entities we persisted
-   in the database and verify the relationships:   
+Edit the `JpaRead` class to retrieve some of the entities we persisted in the database and verify the relationships:
 
-    ```java
-    package org.example;
-    
-    import org.example.model.Address;
-    import org.example.model.Author;
-    import org.example.model.Book;
-    import org.example.model.Publisher;
-    
-    import javax.persistence.EntityManager;
-    import javax.persistence.EntityManagerFactory;
-    import javax.persistence.Persistence;
-    
-    public class JpaRead {
-        public static void main(String[] args) {
-            // create EntityManager
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("example");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-    
-            // get publisher data
-            Publisher publisher = entityManager.find(Publisher.class, 1);
-            System.out.println(publisher);
-            System.out.println(publisher.getAddress());
-            System.out.println(publisher.getBooks());
-    
-            // get address data
-            Address address = entityManager.find(Address.class, 3);
-            System.out.println(address);
-            System.out.println(address.getPublisher());
-    
-            // get author data
-            Author author = entityManager.find(Author.class, 7);
-            System.out.println(author);
-            System.out.println(author.getBooks());
-    
-            // get book data
-            Book book = entityManager.find(Book.class, 9);
-            System.out.println(book);
-            System.out.println(book.getPublisher());
-            System.out.println(book.getAuthors());
-    
-            // close entity manager and factory
-            entityManager.close();
-            entityManagerFactory.close();
-        }
+```java
+package org.example;
+
+import org.example.model.Address;
+import org.example.model.Author;
+import org.example.model.Book;
+import org.example.model.Publisher;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class JpaRead {
+    public static void main(String[] args) {
+        // create EntityManager
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("example");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        // get publisher data
+        Publisher publisher = entityManager.find(Publisher.class, 1);
+        System.out.println(publisher);
+        System.out.println(publisher.getAddress());
+        System.out.println(publisher.getBooks());
+
+        // get address data
+        Address address = entityManager.find(Address.class, 3);
+        System.out.println(address);
+        System.out.println(address.getPublisher());
+
+        // get author data
+        Author author = entityManager.find(Author.class, 7);
+        System.out.println(author);
+        System.out.println(author.getBooks());
+
+        // get book data
+        Book book = entityManager.find(Book.class, 9);
+        System.out.println(book);
+        System.out.println(book.getPublisher());
+        System.out.println(book.getAuthors());
+
+        // close entity manager and factory
+        entityManager.close();
+        entityManagerFactory.close();
     }
-    ```
+}
+```
    
-2. Update `persistence.xml` to set the `hibernate.hbm2ddl.auto` property to `none`.
-   Recall that this prevents Hibernate from deleting the existing table data.    
+Update `persistence.xml` to set the `hibernate.hbm2ddl.auto` property to `none`.
+Recall that this prevents Hibernate from deleting the existing table data.
 
-   ```text
-   <property name="hibernate.hbm2ddl.auto" value="none" /> <!-- create / create-drop / update / none -->
-   ```
+```text
+<property name="hibernate.hbm2ddl.auto" value="none" /> <!-- create / create-drop / update / none -->
+```
    
-3. Execute the `JpaRead.main` method to query the database tables using JPA.
-4. The output from the print statements is interwoven with the Hibernate SQL commands.
-   We can suppress the SQL output by editing `persistence.xml` and setting the `hibernate.show_sql` property to `false`.    
+Execute the `JpaRead.main` method to query the database tables using JPA.
+The output from the print statements is interwoven with the Hibernate SQL commands.
+We can suppress the SQL output by editing `persistence.xml` and setting the `hibernate.show_sql` property to `false`.
 
-   ```text
-   <property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
-   ```
+```text
+<property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
+```
    
-5. Now when we execute the `JpaRead.main` method to query the database tables using JPA,
-   the output is concise:
+Now when we execute the `JpaRead.main` method to query the database tables using JPA, the output is concise:
 
 ```text
 Publisher{id=1, name='HarperCollins', website='harpercollins.com'}
