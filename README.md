@@ -26,6 +26,7 @@ a new Java project named `jpa-publishing` to implement the publishing data model
 2. In IntelliJ, create a new Maven Java project named `jpa-publishing`.     
    ![new jpa project](https://curriculum-content.s3.amazonaws.com/6036/java-mod-5-erd-to-jpa/newproject.png)
 3. Add the PostgreSQL and Hibernate dependencies to `pom.xml`.  Make sure to press the "Load Maven Changes" icon.     
+
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
    <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -58,8 +59,10 @@ a new Java project named `jpa-publishing` to implement the publishing data model
    
    </project>
    ```
+   
 4. Create a directory `META-INF` within `src/main/resources`.
 5. Create a new file `persistence.xml` in the `META-INF` directory.    
+
    ```xml
    <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
@@ -83,10 +86,12 @@ a new Java project named `jpa-publishing` to implement the publishing data model
        </persistence-unit>
    </persistence>
    ```
+   
 6. Right-click on the `Main` class, select Refactor/Rename to rename the class as `JpaCreate`.
 7. Right-click on `org.example` folder and add a new class `JpaRead`.
 8. Right-click on `org.example` folder and add a new package `org.example.model`.
-9. Right-click on the `model` package and add 4 new classes:
+9. Right-click on the `model` package and add 4 new classes:  
+
    - Publisher
    - Address
    - Book
@@ -344,6 +349,7 @@ FROM PUBLISHER;
 | 1   | HarperCollins         | harpercollins.com  |
 | 2   | O'Reilly Media, Inc.  | oreilly.com        |
 
+
 ```sql
 SELECT * 
 FROM ADDRESS;
@@ -353,6 +359,7 @@ FROM ADDRESS;
 |-----|------------|---------------|--------|--------|------|
 | 3   | New York   | United States | NY     | null   | null |
 | 4   | Sebastopol | United States | CA     | null   | null |
+
 
 ```sql
 SELECT * 
@@ -366,6 +373,7 @@ FROM AUTHOR;
 | 7   | Shel       | Silverstein |
 | 8   | Luciano    | Ramalho     |
 
+
 ```sql
 SELECT * 
 FROM BOOK;
@@ -377,6 +385,7 @@ FROM BOOK;
 | 10  | 1       | 9780060256654 | 64    | 2014-02-18       | The Giving Tree         |
 | 11  | 2       | 9781492056355 | 790   | 2022-04-01       | Fluent Python           |
 | 12  | 1       | 9780060256678 | 176   | 2014-02-18       | Where the Sidewalk Ends |
+
 
 ## Implementing The One-To-One Relationship with JPA
 
@@ -399,11 +408,13 @@ relationship between the `Publisher` and `Address` Java classes.
 -  The `Publisher` class implements the owning side of the relationship
    by adding an instance variable to reference the associated `Address` object.
    Note the type of the variable is `Address`, not `int`, since we need
-   to store a reference to an `Address` object not the foreign key integer value.   
+   to store a reference to an `Address` object not the foreign key integer value. 
+
    ```java
    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
    private Address address;  //foreign key named address_id
    ```
+   
 -  The `Address` class implements the referencing or non-owning side
    of the relationship using the `mappedBy` attribute, which
    establishes the relationship as bidirectional.
@@ -518,15 +529,18 @@ referencing the associated `Publisher`.
 
 -  The `Book` class implements the owning side of the relationship
    using a `@ManyToOne` annotation to reference the one associated `Publisher` object.     
+
    ```java
    @ManyToOne
    private Publisher publisher;   // foreign key publisher_id
    ```
+   
 -  The `Publisher` class implements the referencing or non-owning side
    of the relationship using the `@OneToMany` annotation and a collection
    such as a set or list of associated `Book` objects.
    The `@OneToMany` annotation includes the `mappedBy` attribute to establish
    the relationship as bidirectional.       
+
    ```java
    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
    private Set<Book> books = new HashSet<>();
@@ -646,6 +660,7 @@ relationship between `Author` and `Book`
 -  The `Author` class implements the owning side of the relationship
    using a `@ManyToMany` annotation to reference the collection of associated `Book` objects.
    The `@JoinTable` annotation is optional and can be used to specify the table and column names.     
+
    ```java
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Author_Book",
@@ -653,22 +668,28 @@ relationship between `Author` and `Book`
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     private Set<Book> books = new HashSet<>();
    ```
+   
 -  Instead of a setter, the `Author` class establishes the relationship with the method `addBook(Book book)`:   
+
    ```java
    public void addBook(Book book) {
         books.add(book);
    }
    ```
+   
 -  The `Book` class implements the referencing or non-owning side
    of the relationship using the `@ManyToMany` annotation to reference a list of associated `Author` objects.
    The `@ManyToMany` annotation includes the `mappedBy` attribute to establish
    the relationship as bidirectional.     
+
    ```java
    @ManyToMany(mappedBy="books")
    private Set<Author> authors = new HashSet<>();
    ```
+   
 -  If `Book` implements a method to add an author, the method should update the author's book list since
    `Author` is the owning side of the relationship.     
+
    ```java
    public void addAuthor(Author author) {
       authors.add(author);
@@ -836,15 +857,19 @@ FROM Author_Book;
     ```
 2. Update `persistence.xml` to set the `hibernate.hbm2ddl.auto` property to `none`.
    Recall that this prevents Hibernate from deleting the existing table data.    
+
    ```xml
    <property name="hibernate.hbm2ddl.auto" value="none" /> <!-- create / create-drop / update / none -->
    ```
+   
 3. Execute the `JpaRead.main` method to query the database tables using JPA.
 4. The output from the print statements is interwoven with the Hibernate SQL commands.
    We can suppress the SQL output by editing `persistence.xml` and setting the `hibernate.show_sql` property to `false`.    
+
    ```xml
    <property name="hibernate.show_sql" value="false" /> <!-- Show SQL in console -->
    ```
+   
 5. Now when we execute the `JpaRead.main` method to query the database tables using JPA,
    the output is concise:
 
