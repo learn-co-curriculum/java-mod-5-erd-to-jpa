@@ -27,7 +27,7 @@ a new Java project named `jpa-publishing` to implement the publishing data model
    ![new jpa project](https://curriculum-content.s3.amazonaws.com/6036/java-mod-5-erd-to-jpa/newproject.png)
 3. Add the PostgreSQL and Hibernate dependencies to `pom.xml`.  Make sure to press the "Load Maven Changes" icon.     
 
-   ```xml
+   ```text
    <?xml version="1.0" encoding="UTF-8"?>
    <project xmlns="http://maven.apache.org/POM/4.0.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -63,7 +63,7 @@ a new Java project named `jpa-publishing` to implement the publishing data model
 4. Create a directory `META-INF` within `src/main/resources`.
 5. Create a new file `persistence.xml` in the `META-INF` directory.    
 
-   ```xml
+   ```text
    <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
                             http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
